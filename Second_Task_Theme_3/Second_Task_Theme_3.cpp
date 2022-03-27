@@ -54,14 +54,15 @@ int find(my_List& m_l, int find_data, int condition)
 
 	case Find_el_who_more:
 
-		for (int current_i = 0; current_i < m_l.count; current_i++)
+		for (int current_i = 0;; current_i < m_l.count; current_i++)
 		{
-			if (find_data > m_l.fix_arr[current_i])
+			if (find_data < m_l.fix_arr[current_i])
 			{
 				return current_i;
 			}
 		}
 		break;
+
 	default:
 		return Not_found;
 		break;
@@ -78,6 +79,7 @@ void add(my_List& m_l, int data, int condition)
 		std::cout << "Список переполнен!\n";
 		return;
 	}
+
 
 	int current_i = find(m_l, data, Find_el_who_more);
 
@@ -97,7 +99,7 @@ void add(my_List& m_l, int data, int condition)
 	}
 	else
 	{
-		m_l.fix_arr[m_l.count - 1] = data;
+		m_l.fix_arr[m_l.count] = data;
 	}
 
 	m_l.count++;
