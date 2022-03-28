@@ -151,7 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="My_List.cpp" />
     <ClCompile Include="Second_Task_Theme_3.cpp" />
+    <ClCompile Include="User_interface.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="My_List.h" />
+    <ClInclude Include="User_interface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
