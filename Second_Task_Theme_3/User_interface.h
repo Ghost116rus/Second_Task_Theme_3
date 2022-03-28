@@ -18,7 +18,7 @@ enum Options
 };
 
 /* Функция со мной ещё со 2 - ого семестра, когда об объектной обработки исключений ничего не было известно  */
-MyType getValue(int condition, const char* string);
+int getValue(int condition, const char* string);
 
 /*  Вывод главного меню  */
 void show_main_menu();

@@ -14,14 +14,14 @@ void MYLIST::show(my_List& m_l)
 {
 	for (size_t i = 0; i < m_l.count; i++)
 	{
-		std::cout << i << "-й\tэлемент списка. Данные: " << m_l.fix_arr[i] << std::endl;
+		std::cout << i+1 << "-й\tэлемент списка. Данные: " << m_l.fix_arr[i] << std::endl;
 	}
 }
 
 
 bool MYLIST::full(my_List& m_l)
 {
-	return m_l.count == Array_size;
+	return (m_l.count == Array_size);
 }
 
 
@@ -85,11 +85,11 @@ int MYLIST::find_v2(my_List& m_l, MyType find_data, const std::function<bool(MyT
 
 void MYLIST::add(my_List& m_l, MyType data, const std::function<bool(MyType, MyType)>& fcn)
 {
-	if (full(m_l))
-	{
-		std::cout << "Список переполнен!\n";
-		return;
-	}
+	//if (full(m_l))
+	//{
+	//	std::cout << "Список переполнен!\n";
+	//	return;
+	//}
 
 	int current_i = find_v2(m_l, data, fcn);
 
@@ -116,11 +116,11 @@ void MYLIST::add(my_List& m_l, MyType data, const std::function<bool(MyType, MyT
 
 void MYLIST::remove(my_List& m_l, MyType data)
 {
-	if (empty(m_l))
-	{
-		std::cout << "Список переполнен!\n";
-		return;
-	}
+	//if (empty(m_l))
+	//{
+	//	std::cout << "Список переполнен!\n";
+	//	return;
+	//}
 
 	int current_i = find_v2(m_l, data, [](MyType first, MyType second)
 		{
@@ -132,7 +132,8 @@ void MYLIST::remove(my_List& m_l, MyType data)
 	{
 		if (current_i == Array_size-1)
 		{
-			m_l.fix_arr[current_i] = 0; return;
+			m_l.fix_arr[current_i] = 0; m_l.count--; return;
+			//m_l.fix_arr[current_i] = ""; return;
 		}
 
 		for (; current_i < m_l.count; current_i++)

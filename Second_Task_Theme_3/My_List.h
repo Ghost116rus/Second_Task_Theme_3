@@ -13,7 +13,7 @@ enum MyEnum
 
 namespace MYLIST
 {
-	const int Array_size = 10;
+	const int Array_size = 5;
 
 	struct my_List
 	{

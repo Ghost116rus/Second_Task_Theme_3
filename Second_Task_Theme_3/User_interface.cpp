@@ -1,11 +1,11 @@
 #include "user_interface.h"
 
 
-MyType getValue(int condition, const char* string)
+int getValue(int condition, const char* string)
 {
 	while (true)													// цикл продолжается до тех пор, пока пользователь не введет корректное значение
 	{
-		MyType a;
+		int a;
 		std::cin >> a;
 
 		if (std::cin.fail())										// если предыдущее извлечение оказалось неудачным,
@@ -22,7 +22,7 @@ MyType getValue(int condition, const char* string)
 
 			case O_Or_1:												// На будущее
 
-				if ((int)a == 0 || (int)a == 1) { return a; }
+				if ((a == 0) || (a == 1)) { return a; }
 
 				std::cout << "Вы должны ввести либо 0, либо 1\n";
 				std::cin.ignore(32767, '\n');						// и удаляем значения предыдущего ввода из входного буфера
@@ -83,7 +83,7 @@ void menu(MYLIST::my_List& my_list)
 
 			if (!complete_init)
 			{
-				MYLIST::init(my_list, complete_init);
+				MYLIST::init(my_list, complete_init); std::cout << "Cписок инициализирован.\n";
 			}
 			else
 			{
@@ -95,13 +95,24 @@ void menu(MYLIST::my_List& my_list)
 
 			if (complete_init)
 			{
-				std::cout << "Введите данные: "; temp_data = getValue(1, "Введите данные: ");
+				if (!(MYLIST::full(my_list)))
+				{
+					std::cout << "Введите данные: ";
 
-				MYLIST::add(my_list, temp_data, [](MyType first, MyType second)
-					{
-						return first < second;
-					}
-				);
+					temp_data = getValue(1, "Введите данные: ");
+					//std::cin >> temp_data;
+
+					MYLIST::add(my_list, temp_data, [](MyType first, MyType second)
+						{
+							return first < second;
+						}
+					);
+				}
+				else
+				{
+					std::cout << "Список переполнен.\n";
+				}
+				
 			}
 			else
 			{
@@ -114,8 +125,18 @@ void menu(MYLIST::my_List& my_list)
 
 			if (complete_init)
 			{
-				temp_data = getValue(1, "Введите данные: ");
-				MYLIST::remove(my_list, temp_data);
+				if (MYLIST::empty(my_list))
+				{
+					std::cout << "Список пустой!\n";
+				}
+				else
+				{
+					std::cout << "Введите данные, которые хотели бы удалить: ";
+					temp_data = getValue(1, "Введите данные: ");
+					//std::cin >> temp_data;
+					MYLIST::remove(my_list, temp_data);
+				}
+
 			}
 			else
 			{
