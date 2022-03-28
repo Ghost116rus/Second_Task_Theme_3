@@ -18,8 +18,7 @@ enum Options
 };
 
 /* Функция со мной ещё со 2 - ого семестра, когда об объектной обработки исключений ничего не было известно  */
-template<typename T>
-T getValue(int condition, const char* string);
+MyType getValue(int condition, const char* string);
 
 /*  Вывод главного меню  */
 void show_main_menu();
@@ -27,10 +26,5 @@ void show_main_menu();
 /*  Вывод информации об авторе  */
 void write_author();
 
-
-void start();
-
-
 /*  основная программная реализация интерфейса  */
-template<typename T>
-void menu(MYLIST::my_List<T>& my_List);
+void menu(MYLIST::my_List& my_List);

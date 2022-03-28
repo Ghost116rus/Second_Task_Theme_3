@@ -3,15 +3,14 @@
 using namespace MYLIST;
 
 
-template< typename T>
-void MYLIST::init(my_List<T>& m_l, bool& init_complete)
+void MYLIST::init(my_List& m_l, bool& init_complete)
 {
 	m_l.count = 0;
 	init_complete = true;
 }
 
-template< typename T>
-void MYLIST::show(my_List<T>& m_l)
+
+void MYLIST::show(my_List& m_l)
 {
 	for (size_t i = 0; i < m_l.count; i++)
 	{
@@ -19,14 +18,14 @@ void MYLIST::show(my_List<T>& m_l)
 	}
 }
 
-template< typename T>
-bool MYLIST::full(my_List<T>& m_l)
+
+bool MYLIST::full(my_List& m_l)
 {
 	return m_l.count == Array_size;
 }
 
-template<typename T>
-bool MYLIST::empty(my_List<T>& m_l)
+
+bool MYLIST::empty(my_List& m_l)
 {
 	return !(m_l.count);
 }
@@ -69,8 +68,8 @@ int find(my_List<T>& m_l, int find_data, int condition)
 */
 
 
-template< typename T>
-int MYLIST::find_v2(my_List<T>& m_l, T find_data, std::function<bool(T, T)>& fcn)
+
+int MYLIST::find_v2(my_List& m_l, MyType find_data, const std::function<bool(MyType, MyType)>& fcn)
 {
 	for (int current_i = 0; current_i < m_l.count; current_i++)
 	{
@@ -83,8 +82,8 @@ int MYLIST::find_v2(my_List<T>& m_l, T find_data, std::function<bool(T, T)>& fcn
 }
 
 
-template< typename T>
-void MYLIST::add(my_List<T>& m_l, T data, std::function<bool(T, T)>& fcn)
+
+void MYLIST::add(my_List& m_l, MyType data, const std::function<bool(MyType, MyType)>& fcn)
 {
 	if (full(m_l))
 	{
@@ -96,10 +95,10 @@ void MYLIST::add(my_List<T>& m_l, T data, std::function<bool(T, T)>& fcn)
 
 	if (current_i != Not_found)
 	{
-		T temp = m_l.fix_arr[current_i];
+		MyType temp = m_l.fix_arr[current_i];
 		m_l.fix_arr[current_i++] = data;
 
-		for (; current_i < m_l.count; current_i++)
+		for (; current_i < m_l.count+1; current_i++)
 		{
 			data = m_l.fix_arr[current_i];
 			m_l.fix_arr[current_i] = temp;
@@ -114,8 +113,8 @@ void MYLIST::add(my_List<T>& m_l, T data, std::function<bool(T, T)>& fcn)
 	m_l.count++;
 }
 
-template<typename T>
-void MYLIST::remove(my_List<T>& m_l, T data)
+
+void MYLIST::remove(my_List& m_l, MyType data)
 {
 	if (empty(m_l))
 	{
@@ -123,7 +122,7 @@ void MYLIST::remove(my_List<T>& m_l, T data)
 		return;
 	}
 
-	int current_i = find_v2(m_l, data, [](T first, T second)
+	int current_i = find_v2(m_l, data, [](MyType first, MyType second)
 		{
 			return first == second;
 		}	

@@ -7,6 +7,7 @@ int main()
 {
 	setlocale(LC_ALL, "ru");
 
-	start();
+	MYLIST::my_List my_lst;
+	menu(my_lst);
 }
 

@@ -1,11 +1,11 @@
 #include "user_interface.h"
 
-template<typename T>
-T getValue(int condition, const char* string)
+
+MyType getValue(int condition, const char* string)
 {
 	while (true)													// цикл продолжается до тех пор, пока пользователь не введет корректное значение
 	{
-		T a;
+		MyType a;
 		std::cin >> a;
 
 		if (std::cin.fail())										// если предыдущее извлечение оказалось неудачным,
@@ -20,21 +20,21 @@ T getValue(int condition, const char* string)
 			switch (condition)
 			{
 
-			//case O_Or_1:												// На будущее
+			case O_Or_1:												// На будущее
 
-			//	if ((int)a == 0 || (int)a == 1) { return a; }
+				if ((int)a == 0 || (int)a == 1) { return a; }
 
-			//	std::cout << "Вы должны ввести либо 0, либо 1\n";
-			//	std::cin.ignore(32767, '\n');						// и удаляем значения предыдущего ввода из входного буфера
-			//	continue;
+				std::cout << "Вы должны ввести либо 0, либо 1\n";
+				std::cin.ignore(32767, '\n');						// и удаляем значения предыдущего ввода из входного буфера
+				continue;
 
-			//case Menu_Commands:
+			case Menu_Commands:
 
-			//	if (((int)a > 0) && ((int)a < 8)) { return a; }
+				if (((int)a > 0) && ((int)a < 8)) { return a; }
 
-			//	std::cout << "У меню всего 7 функций! Повторите ввод: ";
-			//	std::cin.ignore(32767, '\n');						// и удаляем значения предыдущего ввода из входного буфера
-			//	continue;
+				std::cout << "У меню всего 7 функций! Повторите ввод: ";
+				std::cin.ignore(32767, '\n');						// и удаляем значения предыдущего ввода из входного буфера
+				continue;
 
 			default:
 				return a;
@@ -62,29 +62,20 @@ void write_author()
 	std::cout << "Работу выполнил Калеев Д.А., группа 4211\n";
 }
 
-void start()
-{
-	std::string user_opinion;
-	//std::cout << "Список с какими типом данных вы хотели бы создать: ";
-
-	MYLIST::my_List<int> my_list; menu<int>(my_list);
 
 
-}
-
-template<typename T>
-void menu(MYLIST::my_List<int>& my_list)
+void menu(MYLIST::my_List& my_list)
 {
 	int user_choice = 0;
 	bool complete_init = false;
 
 	show_main_menu();
 	std::cout << "Выберите команду: ";
-	user_choice = getValue<int>(Menu_Commands, "Выберите команду: ");
+	user_choice = getValue(Menu_Commands, "Выберите команду: ");
 
 	while (user_choice != Exit)
 	{
-		T temp_data;
+		MyType temp_data;
 		switch (user_choice)
 		{			
 
@@ -104,12 +95,13 @@ void menu(MYLIST::my_List<int>& my_list)
 
 			if (complete_init)
 			{
-				std::cout << "Введите данные: "; temp_data = getValue<T>(1, "Введите данные: ");
-				//MYLIST::add<T>(my_list, temp_data, [](T first, T second)
-				//	{
-				//		return first < second;
-				//	}
-				//);
+				std::cout << "Введите данные: "; temp_data = getValue(1, "Введите данные: ");
+
+				MYLIST::add(my_list, temp_data, [](MyType first, MyType second)
+					{
+						return first < second;
+					}
+				);
 			}
 			else
 			{
@@ -122,8 +114,8 @@ void menu(MYLIST::my_List<int>& my_list)
 
 			if (complete_init)
 			{
-				temp_data = getValue<T>(1, "Введите данные: ");
-				//MYLIST::remove<T>(my_list, temp_data);
+				temp_data = getValue(1, "Введите данные: ");
+				MYLIST::remove(my_list, temp_data);
 			}
 			else
 			{
@@ -135,8 +127,7 @@ void menu(MYLIST::my_List<int>& my_list)
 
 		case Show_stack:
 
-			if (complete_init) { //MYLIST::show<T>(my_list);
-			}
+			if (complete_init) { MYLIST::show(my_list);	}
 			else { std::cout << "Список не инициализирован!\n"; }
 
 			break;
@@ -156,7 +147,7 @@ void menu(MYLIST::my_List<int>& my_list)
 			break;
 		}
 		std::cout << "\nВыберите команду: ";
-		user_choice = getValue<int>(Menu_Commands, "Выберите команду: ");
+		user_choice = getValue(Menu_Commands, "Выберите команду: ");
 	}
 
 	std::cout << "Завершение работы\n";
